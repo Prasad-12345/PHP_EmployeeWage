@@ -1,9 +1,10 @@
 <?php
     class EmpWage{
         //variable
-        private $check;
+        public $check1;
+        public $check2;
         private $wagePerHour = 20;
-        private $fullDayHour = 8;
+        private $empHrs;
 
         //Function to display welcome message
         public function welcome(){
@@ -12,12 +13,13 @@
 
         //Function to generate randon number between 1 to 2
          public function getNumber(){
-            $this->check = rand(1, 2);
+            $check = rand(1, 2);
+            return $check;
         }
 
         //Function to check employee is present or absent
         public function attendance(){
-            if($this->check == 1){
+            if($this->check1 == 1){
                 echo "Employee is present \n";
             }
             else{
@@ -26,17 +28,25 @@
         }
 
         //Function to calculate daily employee wage
-        public function getDailyWage(){
-            if($this->check == 1){
-                $DailyWage = $this->wagePerHour * $this->fullDayHour;
+        public function getDailyWage($check1){
+            if($this->check1 == 1){
+                if($check1 == 1){
+                    $this->empHrs = 8;
+                }  
+                else{
+                    $this->empHrs = 4;
+                } 
+                $DailyWage = $this->wagePerHour * $this->empHrs;
                 echo "Daily Employee Wage :" . $DailyWage;
-            }   
+            }
         }
     }
     //Object
     $wage = new EmpWage();
     $wage->welcome();
     $wage->getNumber();
+    $wage->check1 = $wage->getNumber();
     $wage->attendance();
-    $wage->getDailyWage();
+    $wage->check2 = $wage->getNumber();
+    $wage->getDailyWage($wage->check2);
 ?>
