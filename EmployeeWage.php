@@ -27,15 +27,18 @@
             }
         }
 
-        //Function to calculate daily employee wage
+        //Function to calculate daily employee wage according to part time and full time
         public function getDailyWage($check1){
             if($this->check1 == 1){
-                if($check1 == 1){
-                    $this->empHrs = 8;
-                }  
-                else{
-                    $this->empHrs = 4;
-                } 
+                switch($check1){
+                    case 1:
+                        $this->empHrs = 8;
+                        break;
+
+                    case 2:
+                        $this->empHrs = 4;
+                        break;
+                }
                 $DailyWage = $this->wagePerHour * $this->empHrs;
                 echo "Daily Employee Wage :" . $DailyWage;
             }
