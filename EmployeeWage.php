@@ -4,9 +4,10 @@
         public $check1;
         public $check2;
         private $wagePerHour = 20;
-        private $empHrs;
+        public $TotalempHrs;
         public $numOfWorkingDays = 20;
         public $monthlyWage;
+        public $maxHrsInMonth = 100;
 
         //Function to display welcome message
         public function welcome(){
@@ -34,14 +35,15 @@
             if($this->check1 == 1){
                 switch($num){
                     case 1:
-                        $this->empHrs = 8;
+                        $empHrs = 8;
                         break;
 
                     case 2:
-                        $this->empHrs = 4;
+                        $empHrs = 4;
                         break;
                 }
-                $DailyWage = $this->wagePerHour * $this->empHrs;
+                $DailyWage = $this->wagePerHour * $empHrs;
+                $this->totalEmpHrs += $empHrs;
                 $this->monthlyWage += $DailyWage;
             }
         }
@@ -50,8 +52,8 @@
     $wage = new EmpWage();
     $wage->welcome();
     $day = 1;
-    //20 working day per month
-    while($day <= 20){
+    //Claculate wage till condition of total working hours or days is reached for month
+    while($day <= $wage->numOfWorkingDays && $wage->TotalempHrs <= $wage->maxHrsInMonth){
         $wage->check1 = $wage->getNumber();
         $wage->attendance();
         $wage->check2 = $wage->getNumber();
