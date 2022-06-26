@@ -5,6 +5,8 @@
         public $check2;
         private $wagePerHour = 20;
         private $empHrs;
+        public $numOfWorkingDays = 20;
+        public $monthlyWage;
 
         //Function to display welcome message
         public function welcome(){
@@ -27,10 +29,10 @@
             }
         }
 
-        //Function to calculate daily employee wage according to part time and full time
-        public function getDailyWage($check1){
+        //Function to calculate monthly employee wage according to part time and full time
+        public function calculateWage($num){
             if($this->check1 == 1){
-                switch($check1){
+                switch($num){
                     case 1:
                         $this->empHrs = 8;
                         break;
@@ -40,16 +42,21 @@
                         break;
                 }
                 $DailyWage = $this->wagePerHour * $this->empHrs;
-                echo "Daily Employee Wage :" . $DailyWage;
+                $this->monthlyWage += $DailyWage;
             }
         }
     }
     //Object
     $wage = new EmpWage();
     $wage->welcome();
-    $wage->getNumber();
-    $wage->check1 = $wage->getNumber();
-    $wage->attendance();
-    $wage->check2 = $wage->getNumber();
-    $wage->getDailyWage($wage->check2);
+    $day = 1;
+    //20 working day per month
+    while($day <= 20){
+        $wage->check1 = $wage->getNumber();
+        $wage->attendance();
+        $wage->check2 = $wage->getNumber();
+        $wage->calculateWage($wage->check2);
+        $day++;
+    }
+    echo "Monthly Wage Employee Wage :" . $wage->monthlyWage;
 ?>
